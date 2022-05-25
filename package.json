@@ -4,9 +4,10 @@
   "description": "Test qa aula inatel",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cypress:open": "cypress open"
   },
-  "author": "Ítalo Moura <italo.moura1201@gmail.com>",
+  "author": "Raphael Freitas <raphaelrrfreitas@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "cypress": "^9.5.4"
