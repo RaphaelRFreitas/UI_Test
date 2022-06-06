@@ -1,4 +1,4 @@
-# S206 - Qualidade de Software Teste de UI
+# S206 - Qualidade de Software Teste de UI - Prova
 
 Para realizar os testes eu utilizei o cypress.io, que é um framework de testes de UI.
 
