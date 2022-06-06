@@ -18,4 +18,4 @@ https://www.jetbrains.com/idea/
 5. Com tudo instalado é só abrir o cypress/integration/test/qainatel.spec.js e rodar usando o plugin Cypress.
 obs: O plugin já gera automaticamente o HTML do teste e também o video do teste.
 
-![img.png](img.png)
+![img_1.png](img_1.png)

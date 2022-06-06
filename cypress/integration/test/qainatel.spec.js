@@ -1,75 +1,39 @@
 /// <reference types="cypress" />
 
-describe("Testar o pomofocus.io", () => {
-    it("Verificar se o Short break funciona ", () => {
-        cy.visit("https://pomofocus.io/");
-        cy.wait(2000);
-        mudartab("short");
-        cy.wait(2000);
+describe("Testar o https://the-internet.herokuapp.com/", () => {
+    it("Testar o add/remove", () => {
+        entrarsite(2);
+        cy.get('[onclick="addElement()"]').click();
+        cy.wait(1000);
+        cy.get('.added-manually').click();
+        cy.get('[onclick="addElement()"]').click();
+        cy.get('[onclick="addElement()"]').click();
     });
 
-    it("Quando clicar em Long break o tempo deve ser de 15 min ", () => {
-        cy.visit("https://pomofocus.io/");
-        cy.wait(2000);
-        mudartab("long");
-        cy.wait(2000);
-        cy.get("#timer-string").should("contain.text", "15:00");
+    it("Testar o login", () => {
+        entrarsite(21);
+        cy.get('#username').type('tomsmith');
+        cy.get('#password').type('SuperSecretPassword!');
+        cy.get('button').click();
+        cy.get('h2').should('contain', 'Secure Area');
+    });
+    it("Testar o login( Fail)", () => {
+        entrarsite(21);
+        cy.get('#username').type('raphael');
+        cy.get('#password').type('pass');
+        cy.get('button').click();
+        cy.get('#flash').should('contain', 'Your username is invalid!');
     });
 
-    it("Quando clicar em start o tempo deve diminuir", () => {
-        cy.visit("https://pomofocus.io/");
-        cy.wait(2000);
-        mudartab("pomodoro");
-        cy.get("button").contains("START").click();
-        cy.wait(2000);
-        cy.get("#timer-string")
-            .invoke("text")
-            .then(parseFloat)
-            .should("be.below", 25);
-    });
-
-    it("Mudar tempo do break para 11 minutos no menu de configuração", () => {
-        cy.visit("https://pomofocus.io/");
-        cy.wait(2000);
-        cy.get(".sc-kpOJdX > :nth-child(2)").click();
-        cy.wait(2000);
-        cy.get(".sc-caSCKo > :nth-child(2) > .sc-iAyFgw").clear().type("11");
-        cy.get(".sc-fBuWsC > .sc-bxivhb").click();
-        cy.wait(2000);
-        mudartab("short");
-        cy.wait(2000);
-        cy.get("#timer-string").should("contain.text", "11:00");
-    });
-
-    it("Adicionando Task", () => {
-        var taskName = "Criei essa task";
-        cy.visit("https://pomofocus.io/");
-        cy.get("div").contains("Add Task").click();
-        cy.wait(2000);
-        cy.get("#input_activity_title").type(taskName);
-        //clicar enter
-        cy.get("#input_activity_title").type("{enter}");
-        cy.wait(2000);
-    });
-
-    it("Tentando criar pomodoros negativos", () => {
-        cy.visit("https://pomofocus.io/");
-        cy.wait(2000);
-        cy.get("div").contains("Add Task").click();
-        cy.wait(2000);
-        cy.get("#input_est_pomodoros").type("-1");
-        cy.wait(2000);
-        cy.get("#input_est_pomodoro").should("contain.value", -1);
-    });
 });
 
-function mudartab(tab) {
-    if(tab == "short"){
-        cy.get("button").contains("Short Break").click();
-    } else if(tab == "long"){
-        cy.get("button").contains("Long Break").click();
-    } else if(tab == "pomodoro"){
-        cy.get("button").contains("Pomodoro").click();
+function entrarsite(num) {
+    cy.visit("https://the-internet.herokuapp.com/");
+    if (num == 2) {
+        cy.get('ul > :nth-child(2) > a').click();
+    }
+    if (num == 21) {
+        cy.get(':nth-child(21) > a').click();
     }
 
 }
